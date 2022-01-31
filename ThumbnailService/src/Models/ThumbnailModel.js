@@ -1,8 +1,8 @@
-// import DB_CONFIG from "../../../config.js";
+import DB_CONFIG from "../../../config.js";
 
-// import { MongoClient } from 'mongodb';
+import { MongoClient } from 'mongodb';
 
-// const client = new MongoClient(`${ DB_CONFIG.DB_HOST }:${ DB_CONFIG.DB_PORT }`);
+const client = new MongoClient(`${ DB_CONFIG.DB_HOST }:${ DB_CONFIG.DB_PORT }`);
 
 import path from "path";
 const __dirname = path.resolve();
@@ -27,13 +27,13 @@ const generateRandomString = (myLength) => {
 export default class ThumbnailModel {
     constructor() {
         try {
-            // client.connect().then(() => {
-            //     console.log('Connected successfully to database');
+            client.connect().then(() => {
+                console.log('Connected successfully to database');
 
-            //     const db = client.db(DB_CONFIG.DB_NAME);
+                const db = client.db(DB_CONFIG.DB_NAME);
 
-            //     collection = db.collection('thumbnails');
-            // });
+                collection = db.collection('thumbnails');
+            });
         } catch (error) {
             console.log(`ThumbnailModel:constructor | ${ error.message }`);
         }
@@ -50,13 +50,13 @@ export default class ThumbnailModel {
 
             await captureWebsite.file(domainName, filePath);
 
-            // let thumbnail = await collection.insertOne({
-            //     userId: userId,
-            //     fileName: `${ fileName }.png`,
-            // });
+            let thumbnail = await collection.insertOne({
+                userId: userId,
+                fileName: `${ fileName }.png`,
+            });
 
-            // if (!thumbnail)
-            //     return false;
+            if (!thumbnail)
+                return false;
 
             return {
                 fileName: `${ fileName }.png`,

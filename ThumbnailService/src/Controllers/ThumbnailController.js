@@ -13,16 +13,16 @@ export default class ThumbnailController {
                     data: "Set domainName"
                 });
 
-            // if (!(/^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+$/.test(domainName)))
-            //     return res.status(404).json({
-            //         data: "Invalid domainName"
-            //     });
+            if (!(/^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+$/.test(domainName)))
+                return res.status(404).json({
+                    data: "Invalid domainName"
+                });
 
-            // let userId = req.user._id;
+            let userId = req.user._id;
 
             let thumbnail = await ThumbnailModelInstance.getThumbNail({
                 domainName: domainName,
-                // userId: userId,
+                userId: userId,
             });
 
             if (!thumbnail)

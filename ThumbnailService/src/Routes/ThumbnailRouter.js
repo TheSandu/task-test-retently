@@ -9,7 +9,7 @@ let AuthMiddleware = new Auth();
 let router = express.Router();
 
 // Check autorisation middleware
-// router.use(AuthMiddleware.isAuth);
+router.use(AuthMiddleware.isAuth);
 
 router.post('/', (req, res) => {
     res.json("System work correctly").status(200);
